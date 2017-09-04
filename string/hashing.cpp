@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 
+// another possible base is 7
 #define B 33
 
 using namespace std;
