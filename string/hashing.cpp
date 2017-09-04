@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-#define B 7
+#define B 33
 
 using namespace std;
 
