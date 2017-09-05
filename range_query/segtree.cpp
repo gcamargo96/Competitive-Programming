@@ -39,5 +39,5 @@ void update(int r, int x, int i, int j){
 	int mid = (i+j)/2;
 	update(r*2, x, i, mid);
 	update(r*2+1, x, mid+1, j);
-	seg[r] = min(seg[2*r], seg[2*r+1]);
+	seg[r] = seg[2*r] + seg[2*r+1];
 }
