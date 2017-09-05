@@ -1,33 +1,18 @@
 #include <bits/stdc++.h>
-#define N 1000011
-
 using namespace std;
 
-char str[N];
+const int N = 100002;
+int z[N];
+string s;
 
-int n, z[N];
-/*str[i..i+z[i]-1]=str[0..z[i]-1]*/
-
-void zeta() {
-	int l = 0, r = 0;
-	z[0] = n;
-	for( int i = 1 ; i<n ;i++ )
-	{
-		if( i > r )
-		{
-			l = r = i;
-			while( r < n && str[r-l] == str[r] ) r++; 
-			z[i] = r-l, r--;
-		} 
-		else
-		{
-			int k = i-l;
-			if( z[k] < r-i+1 ) z[i] = z[k];
-			else {
-				l = i;
-				while( r < n && str[r-l] == str[r] ) r++;
-				z[i] = r-l;r--;
-			}
-		}
+void Z(string& s){
+	int l = 0, r = 0, n = s.size();
+	for(int i = 1; i < n; i++){
+		if(i <= r)
+			z[i] = min(z[i-l], r-i+1);
+		while(z[i]+i < n and s[z[i]+i] == s[z[i]])
+			z[i]++;
+		if(r < i+z[i]-1)
+			l = i, r = i + z[i] - 1;
 	}
 }
