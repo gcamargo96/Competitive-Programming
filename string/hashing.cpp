@@ -15,7 +15,6 @@ typedef vector<bool> vb;
 typedef pair<int,int> ii;
 typedef complex<double> base;
 
-// another possible base is 7
 #define B 33
 string s;
 int a, b, c, d, k, n;
