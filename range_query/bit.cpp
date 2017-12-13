@@ -7,7 +7,7 @@ int bit[N];
 void update(int id, int x){
 	while(id < N){
 		bit[id] += x;
-		id += id & -d;
+		id += id & -id;
 	}
 }
 
