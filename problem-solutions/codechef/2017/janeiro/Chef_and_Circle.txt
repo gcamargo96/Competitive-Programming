@@ -1,0 +1,136 @@
+3:08:28 PM ** Rodrigo has connected.
+3:09:23 PM ** Guest3148 has connected.
+3:09:28 PM <Rodrigo> ae
+3:09:34 PM ** A has connected.
+3:09:58 PM ** Guest3148 has disconnected.
+3:10:27 PM <Rodrigo> então
+3:10:38 PM <Rodrigo> primeiro a gente fixou três pontos, depois fixamos 2 pontos e um raio
+3:10:55 PM <Rodrigo> na solução que passa a gente fixa um ponto e um raio
+3:11:10 PM <Rodrigo> um ponto e um raio definem infinitas circumferências
+3:11:45 PM <Rodrigo> quer dizer, existem infinitas circunferências que passam pelo ponto AA, com raio RR
+3:12:13 PM <Rodrigo> elas "giram" em torno do ponto A
+3:12:46 PM <Rodrigo> o centro dela gira em torno do ponto A, seguindo a "órbita" do círculo de centro AA e raio RR
+3:13:06 PM <A> certo
+3:15:09 PM <Rodrigo> em coordenadas polares, se a origem do sistema de coordendas for AA, então essas infinitas circunferências são definidas por todos os pontos (ρ,θ)(ρ,θ) tal que ρ=Rρ=R
+3:16:27 PM <A> os centros das infinitas circunferências vão ser definidos por essas coordenadas né?
+3:16:37 PM <Rodrigo> isso
+3:16:42 PM <Rodrigo> {(ρ,θ)|ρ=R,0<=θ<2∗π}{(ρ,θ)|ρ=R,0<=θ<2∗π}
+3:16:53 PM <A> certo
+3:17:36 PM <Rodrigo> entre essas circunferências
+3:17:55 PM <Rodrigo> existe uma ou mais que cobre o número máximo de pontos que dá
+3:18:37 PM <Rodrigo> note que conforme você vai "girando" e obtendo a próxima circunferências, os pontos vão entrando e saindo
+3:18:57 PM <A> certo
+3:19:05 PM <Rodrigo> conforme varia θθ, pontos entram na circunferência, ficam por um certo intervalo e depois saem
+3:20:10 PM <Rodrigo> mais especificamente, o único ponto que vai ficar sempre dentro da circunferência é o AA
+3:20:13 PM <Rodrigo> nesse caso ele fica na borda
+3:20:46 PM <Rodrigo> mas todos os outros pontos uma hora saem dela, não tem nenhum que fica dentro para todo θθ
+3:21:43 PM <A> ok
+3:22:05 PM <Rodrigo> mais especificamente ainda, os pontos ficam dentro da circunferência para no máximo dois intervalos disjuntos do valor θθ
+3:23:08 PM <Rodrigo> porque pode ser que um ponto comece dentro, saia, e depois entre de novo
+3:25:15 PM <Rodrigo> por exemplo se o ponto tiver muito perto do eixo 00
+3:25:28 PM <Rodrigo> eixo θ=0θ=0
+3:25:39 PM <Rodrigo> ou mesmo se ele tiver no próprio eixo
+3:26:15 PM <Rodrigo> então ele vai estar dentro do círculo para alguns θθ próximos de 00, e também para alguns próximos de 2∗π2∗π
+3:26:17 PM <A> não sei se entendi muito bem essa última parte
+3:26:43 PM <A> ah, entendi
+3:26:53 PM <Rodrigo> nice
+3:28:29 PM <Rodrigo> então seria bom se fosse possível encontrar rápido o θθ tal que a circunferência de centro (R,θ)cobrisseomaiornúmerodepontospossíveis(R,θ)cobrisseomaiornúmerodepontospossíveis
+3:28:52 PM <Rodrigo> centro (R,θ)(R,θ) cobrisse o maior número de pontos possíveis*
+3:30:08 PM <Rodrigo> e acaba que pra cada ponto PP você consegue calcular pra quais o(s) intervalo(s) de θθ tal ponto PP pertence ao círculo de centro (R,θ)(R,θ) e raio RR
+3:31:39 PM <Rodrigo> usando a fórmula da distância pra coordenadas polares, você chega que:
+3:32:51 PM <Rodrigo> o ponto P=(ρ,α)P=(ρ,α) pertence a circunferência de centro (R,θ)(R,θ) e raio RR
+3:32:54 PM <Rodrigo> se e somente se
+3:33:35 PM <Rodrigo> cos(θ−α)≥ρ2Rcos(θ−α)≥ρ2R
+3:34:07 PM <Rodrigo> uma inequação trigonométrica
+3:35:03 PM <Rodrigo> cujas soluções vão dar pra que ângulos θθ o ponto PP percente ao círculo
+3:37:16 PM <A> hmm, to processando isso ainda
+3:37:18 PM <A> sou meio lerdo
+3:38:28 PM <Rodrigo> basicamente vamos girar o círculo de raio RR que contém AA em torno de AA
+3:38:43 PM <A> certo
+3:39:03 PM <A> é que eu não lembro de onde veio essa inequação, mas posso pesquisar depois
+3:39:15 PM <Rodrigo> ah não, a inequação você descobre fazendo conta
+3:39:22 PM <Rodrigo> não é direto
+3:39:56 PM <A> ah, certo
+3:40:25 PM <Rodrigo> mas então vamos girar o círculo lá, que tem centro (R,θ)(R,θ), variando o θθ, e o que to dizendo é que
+3:40:45 PM <Rodrigo> pra cada ponto dá pra calcular em quais valores de θθ o círculo vai cobrir esse ponto
+3:41:09 PM <Rodrigo> valores de θθ em que o círculo vai cobrir esse ponto
+3:41:56 PM <Rodrigo> esses valores são intervalos
+3:42:19 PM <Rodrigo> e dá pra achar usando aquela inequação
+3:42:24 PM <A> certo
+3:42:43 PM <Rodrigo> como eu falei, pra cada ponto, pode ter zero, um, ou dois intervalos disjuntos possíveis
+3:43:05 PM <Rodrigo> se a distância do ponto até o centro (R,θ)(R,θ) for maior que RR então não tem intervalo, aquele ponto nunca vai entrar
+3:43:40 PM <Rodrigo> e note como a equação respeita isso
+3:44:00 PM <Rodrigo> cos(θ−α)≥ρ2Rcos(θ−α)≥ρ2R
+3:44:30 PM <Rodrigo> se ρ>2Rρ>2R
+3:44:36 PM <A> certo
+3:44:39 PM <A> cos não pode ser > 1
+3:44:43 PM <A> faz sentido
+3:44:51 PM <Rodrigo> significa que o ponto ta a mais de 2R2R de distância da origem, que era o ponto AA que fixamos
+3:45:49 PM <Rodrigo> não tem como AA e um ponto que está a mais de 2R2R de distância de AA estarem na mesma circunferência de raio RR
+3:45:58 PM <A> certo
+3:47:25 PM <Rodrigo> essa inequação também respeita o lance que eu falei de poder ter até dois intervalos
+3:47:31 PM <Rodrigo> porque considere uma equação na simples da mesma forma
+3:47:34 PM <Rodrigo> inequação*
+3:47:51 PM <Rodrigo> considere a inequação cos(x)≥kcos(x)≥k
+3:48:21 PM <Rodrigo> lembra do ciclo trigonométrico, onde o cosseno fica na horizontal
+3:48:40 PM <Rodrigo> as soluções pra essa equação vão ser simétricas em torno do 0
+3:49:03 PM <Rodrigo> vai ser algo do tipo −S≤x≤S−S≤x≤S
+3:49:28 PM <A> certo
+3:49:54 PM <Rodrigo> e o nosso intervalo nas coordenadas polares, pra ângulos, é [0,2π)[0,2π)
+3:50:04 PM <Rodrigo> ou seja não tem negativo
+3:50:53 PM <Rodrigo> então em coordenadas polares ficaria o intervalo [−S,S][−S,S] na verdade vira
+3:51:50 PM <Rodrigo> [2π−S,2π)⋃[0,S][2π−S,2π)⋃[0,S]
+3:52:16 PM <A> certo
+3:53:22 PM <Rodrigo> ou seja a inequação cos(x)≥kcos(x)≥k sempre vai ter dois intervalos se você for considerar coordendas polares
+3:53:45 PM <Rodrigo> só que a inequação original não necessariamente vai ter porque você tá deslocando o ângulo
+3:54:05 PM <Rodrigo> você tá subtraindo a constante αα
+3:55:32 PM <Rodrigo> outra maneira de ver é que a equação lá
+3:56:20 PM <Rodrigo> cos(θ−α)≥ρ2Rcos(θ−α)≥ρ2R
+3:56:40 PM <Rodrigo> passando a função acosacos dos dois lados, fica
+3:57:10 PM <Rodrigo> θ−α≥acos(ρ2R)θ−α≥acos(ρ2R)
+3:57:50 PM <Rodrigo> se fosse só θθ sempre teria dois intervalos
+3:58:18 PM <Rodrigo> mas é θ−αθ−α
+3:58:43 PM <Rodrigo> ah acho que não foi muito boa essa explicação alternativa D:
+3:59:48 PM <A> eu to um pouco confuso com essa parte, mas provavelmente vou ter que desenhar mesmo pra entender
+4:02:10 PM <Rodrigo> é,acho que eu entrei muito no detalhe também
+4:02:23 PM <Rodrigo> a ideia geral é que tem como calcular os intervalos de cada ponto
+4:02:42 PM <A> certo
+4:02:46 PM <A> até aí tudo bem
+4:02:51 PM <Rodrigo> pode ser que tenha dois intervalos, mas isso não vai influenciar
+4:02:59 PM <Rodrigo> imagina que tem um intervalo só
+4:03:39 PM <A> ok
+4:04:20 PM <Rodrigo> o que você poderia fazer então é, fixados o ponto AA e o raio RR, calcular os intervalos de θθ em que o círculo de centro (R,θ)(R,θ) e raio RR contém cada ponto
+4:04:40 PM <Rodrigo> (lembrando que AA é a origem do sistema de coordenadas polares)
+4:05:08 PM <Rodrigo> e aí agora o seu problema virou descobrir qual é o θθ que está dentro do maior número de intervalos de pontos
+4:06:27 PM <Rodrigo> o qual é um problema clássico de sweep line que pode ser resolvido em O(I∗log2(I))O(I∗log2(I))
+4:07:00 PM <Rodrigo> onde II é o número de intervalos, no caso II é O(N)O(N)
+4:07:12 PM <A> caramba
+4:07:34 PM <A> esse problema precisa de muitas técnicas imporantes
+4:07:41 PM <Rodrigo> sim
+4:07:43 PM <A> importantes*
+4:07:53 PM <Rodrigo> você sabe sweep line?
+4:08:00 PM <A> sei
+4:08:15 PM <Rodrigo> é, então, seu evento vai ser o começo do intervalo e o final do intervalo
+4:08:22 PM <Rodrigo> é só ordenar os eventos e usar um contador
+4:08:31 PM <Rodrigo> quando começa um intervalo incrementa, quando acaba decrementa e
+4:08:46 PM <Rodrigo> e aí você vai saber o máximo de pontos que pode ser coberto
+4:09:13 PM <A> hmmmmm
+4:09:17 PM <A> muito bom
+4:09:28 PM <Rodrigo> pra cada ponto AA você vai fazer uma busca binária no raio RR
+4:09:35 PM <Rodrigo> e aí vai resolver esse sweep line
+4:09:40 PM <Rodrigo> a complexidade final fica
+4:10:18 PM <Rodrigo> O(N∗log2(maiorraio)∗N∗log2(N))=O(N2∗log2(maiorraio)∗log2(N))O(N∗log2(maiorraio)∗N∗log2(N))=O(N2∗log2(maiorraio)∗log2(N))
+4:10:31 PM <Rodrigo> que FINALMENTE passa
+4:10:36 PM <A> caramba
+4:10:43 PM <A> esse foi o melhor problema que eu vi nos últimos tempos
+4:10:51 PM <A> valeu mesmo rodz
+4:11:12 PM <A> essa explicação passando por todas as ideias, desde a naive até a com complexidade adequada ajudou muito
+4:11:17 PM <A> 10/10
+4:11:48 PM <Rodrigo> hahahaha de nada
+4:11:49 PM <Rodrigo> fico feliz
+4:12:05 PM <Rodrigo> fica aquela questão de que na verdade pra cada ponto podem ter dois intervalos
+4:12:11 PM <Rodrigo> conforme aquela inequação trigonométrica diz
+4:12:22 PM <Rodrigo> só que isso não vai ser um problema porque esses intervalos vão ser sempre disjuntos
+4:12:32 PM <Rodrigo> então não corre risco de no sweep line você contar o mesmo ponto duas vezes v
+4:12:41 PM <Rodrigo> você pode jogar os dois intervalos lá sem medo
+4:12:42 PM <A> certo

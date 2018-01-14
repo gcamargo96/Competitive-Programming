@@ -1,0 +1,112 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define INF 0x3f3f3f3f
+#define For(i,a,b) for(int (i)=(a);(i) < (b); ++(i))
+#define mp make_pair
+#define pb push_back
+#define fi first
+#define se second
+#define endl "\n"
+#define PI acos(-1)
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector<bool> vb;
+typedef pair<int,int> ii;
+typedef complex<double> base;
+
+const int N = 100002;
+int t, n, q;
+int a[N], L[N], R[N];
+int res, l, r;
+
+struct query{
+	int l, r, k;
+};
+
+query qry[N];
+
+void update(int id, int x){
+	while(id < N){
+		bit[id] += x;
+		id += id & -id;
+	}
+}
+
+int query(int id){
+	int sum = 0;
+	while(id > 0){
+		sum += bit[id];
+		id -= id & -id;
+	}
+	return sum;
+}
+
+bool cmp(query a, query b){
+	int bucket = sqrt(n);
+	if(a.l/bucket == b.l/bucket) return a.r < b.r;
+	return a.l/bucket < b.l/bucket;
+}
+
+void mo(int li, int ri){
+	if(r != ri) update(R[r], -1);
+	//if(l != li) update(R[l], -1);
+	
+	while(r <= ri){
+		if(a[r]+1 != a[r+1] or r == ri) update(L[r], 1);
+		r++;
+	}
+	while(l <= li){
+		if(l < li and (a[l] != a[l+1]-1 or l == li-1)) update(R[l], -1);
+		if(l == li) update(R[l], 1);
+		l++;
+	}
+	while(l >= li){
+		if(a[l])
+	}
+}
+
+int main(void){
+	scanf("%d", &t);
+
+	while(t--){
+		scanf("%d%d", &n, &q);
+
+		for(int i = 1; i <= n; i++){
+			scanf("%d", &a[i]);
+		}
+
+		L[n] = 1;
+		for(int i = n-1; i >= 1; i--){
+			if(a[i] == a[i+1]){
+				L[i] = L[i+1]+1;
+			}
+			else{
+				L[i] = 1;
+			}
+		}
+		
+		R[n] = 1;
+		for(int i = 1; i <= n; i++){
+			if(a[i] == a[i-1]){
+				R[i] = R[i-1]+1;
+			}
+			else{
+				R[i] = 1;
+			}
+		}
+		
+		int l, r, k;
+		For(i,0,q){
+			scanf("%d%d%d", &qry[i].l, &qry[i].r, &qry[i].k);
+		}
+		
+		sort(qry, qry+q, cmp);
+		
+		For(i,0,q){
+			mo(q[i].l, q[i].r);
+		}
+	}
+
+	return 0;
+}
+
