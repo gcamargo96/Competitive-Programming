@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define INF 0x3f3f3f3f
+#define INF 1000000000000LL
 #define M 1000000007
 #define For(i,a,b) for(int (i)=(a);(i) < (b); ++(i))
 #define mp make_pair
