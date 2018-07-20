@@ -1,42 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define INF 0X3f3f3f3f
-#define M 1000000007
 #define For(i,a,b) for(int (i)=(a);(i) < (b); ++(i))
 #define mp make_pair
 #define pb push_back 
 #define fi first
 #define se second
-#define endl "\n"
 #define PI acos(-1)
+#define fastcin ios_base::sync_with_stdio(false);
 typedef long long ll;
 typedef vector<int> vi;
 typedef vector<bool> vb;
 typedef pair<int,int> ii;
 typedef complex<double> base;
 
-int k;
-string s;
-
-int calc(){
-	int sum = 0;
-	for(int i = 0; i < s.size(); i++){
-		sum += s[i]-'0';
-	}
-	return sum;
-}
+const int N = 102;
+int n, d;
+int v[N];
 
 int main(void){
-	cin >> k >> s;
+	fastcin;
+	cin >> n >> d;
 
-	sort(s.begin(), s.end());
-	int sum = calc();
+	set<int> s;
+	for(int i = 0; i < n; i++){
+		cin >> v[i];
+		s.insert(v[i]-d);
+		s.insert(v[i]+d);
+	}
+
 
 	int ans = 0;
-	for(int i = 0; i < s.size() and sum < k; i++){
-		sum -= s[i]-'0';
-		sum += 9;
-		ans++;
+	for(int x : s){
+		int mindist = INT_MAX;
+		for(int i = 0; i < n; i++){
+			mindist = min(mindist, abs(x-v[i]));
+		}
+		if(mindist == d){
+			ans++;
+		}
 	}
 
 	cout << ans << endl;

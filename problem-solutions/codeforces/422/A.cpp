@@ -15,23 +15,20 @@ typedef vector<bool> vb;
 typedef pair<int,int> ii;
 typedef complex<double> base;
 
-int s, v1, v2, t1, t2;
+ll a, b;
 
 int main(void){
-	scanf("%d%d%d%d%d", &s, &v1, &v2, &t1, &t2);
+	cin >> a >> b;
 
-	int p1 = 2*t1 + s*v1;
-	int p2 = 2*t2 + s*v2;
+	ll x = min(a,b);
 
-	if(p1 == p2){
-		printf("Friendship\n");
+	ll ans = 1;
+	while(x > 1){
+		ans *= x;
+		x--;
 	}
-	else if(p1 < p2){
-		printf("First\n");
-	}
-	else{
-		printf("Second\n");
-	}
+
+	cout << ans << endl;
 
 	return 0;
 }
