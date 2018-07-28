@@ -37,7 +37,7 @@ int query(int r, int i, int j){
 
 bool cmp(ii a, ii b){
 	if(a.fi == b.fi){
-		return a.se > b.se;
+		return a.se > b.se; // if you want to find the longest non-decreasing subsequence, change '>' to '<'
 	}
 	return a.fi < b.fi;
 }
