@@ -2,41 +2,45 @@
 using namespace std;
 #define For(i,a,b) for(int (i)=(a);(i) < (b); ++(i))
 #define mp make_pair
-#define pb push_back 
+#define pb push_back
+#define eb emplace_back
 #define fi first
 #define se second
-#define endl "\n"
 #define PI acos(-1)
 #define fastcin ios_base::sync_with_stdio(false);
 typedef long long ll;
 typedef vector<int> vi;
 typedef vector<bool> vb;
 typedef pair<int,int> ii;
+typedef complex<double> base;
 
-map<string, int> cnt1, cnt2;
-string s;
+const int N = 200005;
 int n;
+int cnt[N];
 
 int main(void){
-	cin >> n;
+	scanf("%d", &n);
 
+	int x;
 	for(int i = 0; i < n; i++){
-		cin >> s;
-		cnt1[s]++;
-	}
-	for(int i = 0; i < n; i++){
-		cin >> s;
-		cnt2[s]++;
+		scanf("%d", &x);
+		cnt[x]++;
 	}
 
-	int iguais = 0;
-	for(auto cur : cnt1){
-		if(cnt2.count(cur.fi)){
-			iguais += min(cur.se, cnt2[cur.fi]);
-		}
+	int ans = 0;
+	for(int i = 1; i < N; i++){
+		int aux = cnt[i]/4;
+		ans += aux;
+		cnt[i] -= 4*aux;
 	}
 
-	cout << n-iguais << endl;
+	int sum = 0;
+	for(int i = 1; i < N; i++){
+		if(cnt[i] >= 2) sum++;
+	}
+	ans += sum/2;
+
+	printf("%d\n", ans);
 
 	return 0;
 }

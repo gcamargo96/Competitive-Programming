@@ -29,7 +29,7 @@ void update(int r, int x, int i, int j){
 	prop(r, i, j);
 	if(b < i or a > j) return;
 	if(a <= i and b >= j){
-		seg[r] += x;
+		seg[r] += (j-i+1) * x;
 		if(i != j){
 			lazy[2*r] += x;
 			lazy[2*r+1] += x;

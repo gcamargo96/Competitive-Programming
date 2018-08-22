@@ -2,41 +2,32 @@
 using namespace std;
 #define For(i,a,b) for(int (i)=(a);(i) < (b); ++(i))
 #define mp make_pair
-#define pb push_back 
+#define pb push_back
+#define eb emplace_back
 #define fi first
 #define se second
-#define endl "\n"
 #define PI acos(-1)
 #define fastcin ios_base::sync_with_stdio(false);
 typedef long long ll;
 typedef vector<int> vi;
 typedef vector<bool> vb;
 typedef pair<int,int> ii;
+typedef complex<double> base;
 
-map<string, int> cnt1, cnt2;
-string s;
-int n;
+int s, g;
 
 int main(void){
-	cin >> n;
+	scanf("%d%d", &s, &g);
 
-	for(int i = 0; i < n; i++){
-		cin >> s;
-		cnt1[s]++;
-	}
-	for(int i = 0; i < n; i++){
-		cin >> s;
-		cnt2[s]++;
-	}
+	if(s > g and s%g == 0){		
+		int a = g;
+		int b = s-g;
 
-	int iguais = 0;
-	for(auto cur : cnt1){
-		if(cnt2.count(cur.fi)){
-			iguais += min(cur.se, cnt2[cur.fi]);
-		}
+		printf("%d %d\n", a, b);
 	}
-
-	cout << n-iguais << endl;
+	else{
+		printf("-1\n");
+	}
 
 	return 0;
 }
