@@ -1,0 +1,102 @@
+Divisibilidade por 2
+Um número natural é divisível por 2 quando ele termina em 0, ou 2, ou 4, ou 6, ou 8, ou seja, quando ele é par.
+
+Exemplos:
+1) 5040 é divisível por 2, pois termina em 0.
+2) 237 não é divisível por 2, pois não é um número par.
+
+Divisibilidade por 3
+Um número é divisível por 3 quando a soma dos valores absolutos dos seus algarismos for divisível por 3.
+
+Exemplo:
+234 é divisível por 3, pois a soma de seus algarismos é igual a 2+3+4=9, e como 9 é divisível por 3, então 234 é divisível por 3.
+
+Divisibilidade por 4
+Um número é divisível por 4 quando termina em 00 ou quando o número formado pelos dois últimos algarismos da direita for divisível por 4.
+
+Exemplo:
+1800 é divisível por 4, pois termina em 00.
+4116 é divisível por 4, pois 16 é divisível por 4.
+1324 é divisível por 4, pois 24 é divisível por 4.
+3850 não é divisível por 4, pois não termina em 00 e 50 não é divisível por 4.
+
+Divisibilidade por 5
+Um número natural é divisível por 5 quando ele termina em 0 ou 5.
+
+Exemplos:
+1) 55 é divisível por 5, pois termina em 5.
+2) 90 é divisível por 5, pois termina em 0.
+3) 87 não é divisível por 5, pois não termina em 0 nem em 5. 
+
+Divisibilidade por 6
+Um número é divisível por 6 quando é divisível por 2 e por 3.
+
+Exemplos:
+1) 312 é divisível por 6, porque é divisível por 2 (par) e por 3 (soma: 6).
+2) 5214 é divisível por 6, porque é divisível por 2 (par) e por 3 (soma: 12).
+3) 716 não é divisível por 6, (é divisível por 2, mas não é divisível por 3).
+4) 3405 não é divisível por 6 (é divisível por 3, mas não é divisível por 2).
+
+Divisibilidade por 8
+Um número é divisível por 8 quando termina em 000, ou quando o número formado pelos três últimos algarismos da direita for divisível por 8.
+
+Exemplos:
+1) 7000 é divisível por 8, pois termina em 000.
+2) 56104 é divisível por 8, pois 104 é divisível por 8.
+3) 61112 é divisível por 8, pois 112 é divisível por 8.
+4) 78164 não é divisível por 8, pois 164 não é divisível por 8.
+
+Divisibilidade por 9
+Um número é divisível por 9 quando a soma dos valores absolutos dos seus algarismos for divisível por 9.
+
+Exemplo:
+2871 é divisível por 9, pois a soma de seus algarismos é igual a 2+8+7+1=18, e como 18 é divisível por 9, então 2871 é divisível por 9.
+
+Divisibilidade por 10
+Um número natural é divisível por 10 quando ele termina em 0.
+
+Exemplos:
+1) 4150 é divisível por 10, pois termina em 0.
+2) 2106 não é divisível por 10, pois não termina em 0.
+
+Divisibilidade por 11
+Um número é divisível por 11 quando a diferença entre as somas dos valores absolutos dos algarismos de ordem ímpar e a dos de ordem par é divisível por 11.
+
+O algarismo das unidades é de 1ª ordem, o das dezenas de 2ª ordem, o das centenas de 3ª ordem, e assim sucessivamente.
+
+Exemplos:
+1) 87549
+Si (soma das ordens ímpares) = 9+5+8 = 22
+Sp (soma das ordens pares) = 4+7 = 11
+Si-Sp = 22-11 = 11
+Como 11 é divisível por 11, então o número 87549 é divisível por 11.
+
+2) 439087
+Si (soma das ordens ímpares) = 7+0+3 = 10
+Sp (soma das ordens pares) = 8+9+4 = 21
+Si-Sp = 10-21
+Como a subtração não pode ser realizada, acrescenta-se o menor múltiplo de 11 (diferente de zero) ao minuendo, para que a subtração possa ser realizada: 10+11 = 21. Então temos a subtração 21-21 = 0.
+Como zero é divisível por 11, o número 439087 é divisível por 11. 
+
+
+Divisibilidade por 12
+Um número é divisível por 12 quando é divisível por 3 e por 4.
+
+Exemplos:
+1) 720 é divisível por 12, porque é divisível por 3 (soma=9) e por 4 (dois últimos algarismos, 20).
+2) 870 não é divisível por 12 (é divisível por 3, mas não é divisível por 4).
+3) 340 não é divisível por 12 (é divisível por 4, mas não é divisível por 3).
+
+Divisibilidade por 15
+Um número é divisível por 15 quando é divisível por 3 e por 5.
+
+Exemplos:
+1) 105 é divisível por 15, porque é divisível por 3 (soma=6) e por 5 (termina em 5).
+2) 324 não é divisível por 15 (é divisível por 3, mas não é divisível por 5).
+3) 530 não é divisível por 15 (é divisível por 5, mas não é divisível por 3).
+
+Divisibilidade por 25
+Um número é divisível por 25 quando os dois algarismos finais forem 00, 25, 50 ou 75.
+
+Exemplos:
+200, 525, 850 e 975 são divisíveis por 25.
