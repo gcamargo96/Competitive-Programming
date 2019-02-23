@@ -35,14 +35,12 @@ struct frac{
 };
 
 
-bool operator < (frac a, frac b)
-{
+bool operator < (frac a, frac b){
     if((a.den < 0) ^ (b.den < 0)) return a.num * b.den > b.num * a.den;
     return a.num * b.den < b.num * a.den;
 }
 
-std::ostream& operator<<(std::ostream& o, const frac f)
-{
+std::ostream& operator<<(std::ostream& o, const frac f){
     o << f.num << "/" << f.den;
     return o;
 }
