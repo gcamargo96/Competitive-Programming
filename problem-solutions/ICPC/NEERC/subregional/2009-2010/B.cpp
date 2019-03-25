@@ -15,39 +15,34 @@ typedef vector<bool> vb;
 typedef pair<int,int> ii;
 typedef complex<double> base;
 
-string s;
-
-bool palindrome(string& s, int i, int j){
-	for(int l = i, r = j; l < r; l++, r--){
-		if(s[l] != s[r]) return 0;
-	}
-	return 1;
-}
+int cnta[11], cntb[11];
+string s, t;
 
 int main(void){
+	freopen("bulls.in", "r", stdin);
+	freopen("bulls.out", "w", stdout);
+
 	fastcin;
-	cin >> s;
+	cin >> s >> t;
 
-	set<char> dif;
-	for(int i = 0; i < s.size()/2; i++){
-		dif.insert(s[i]);
-	}
-
-	if(dif.size() < 2){
-		printf("Impossible\n");
-		return 0;
-	}
-
-	string t = s+s;
+	int bulls = 0;
 	for(int i = 0; i < s.size(); i++){
-		// cout << t.substr(i, s.size()) << endl;
-		if(t.substr(i, s.size()) != s and palindrome(t, i, i+s.size()-1)){
-			printf("1\n");
-			return 0;
+		if(s[i] == t[i]){
+			bulls++;
+		}
+		else{
+			cnta[s[i]-'0']++;
+			cntb[t[i]-'0']++;
 		}
 	}
 
-	printf("2\n");
+	int cows = 0;
+	for(int i = 0; i <= 9; i++){
+		cows += min(cnta[i], cntb[i]);
+	}
+
+	// printf("%d %d\n", bulls, cows);
+	cout << bulls << " " << cows << endl;
 
 	return 0;
 }
