@@ -15,12 +15,13 @@ typedef vector<bool> vb;
 typedef pair<int,int> ii;
 typedef complex<double> base;
 
-const int N = 200005;
-string s[12];
+const int N = 500005;
+string s[N];
 int at = 0;
 
 struct No {
     int L, R, p, suff, id;
+    ll sub = 0;
     map <char, int> f;
     No() {}
     No(int l, int r, int P, int ID) : L(l), R(r), p(P), id(ID) {}
@@ -46,7 +47,7 @@ void build_suffix_tree (string& s, int id) {
     // s += "$";
     int i = 0, cn = 0, cd = 0, ns = 0;
     int n = s.size();
-    for (int j = 0; j < n; j++) {
+    for (int j = 0; j < s.size(); j++) {
         for (; i <= j; i++) {
             if (t[cn].len() == cd ? t[cn].f.count(s[j]) : t[cn][cd] == s[j]) {//CASO 1
                 if (t[cn].len() == cd) {
@@ -95,40 +96,49 @@ void build_suffix_tree (string& s, int id) {
     }
 }
 
-int tests, cnt;
-bitset<10> simbols[2*N];
+int k;
+string ans;
 
-void set_simbols(int cn){
-    char c = t[cn][t[cn].len()-1];
-    if(c >= '0' and c <= '9'){
-        simbols[cn].set(c-'0');
+ll precalc(int cn){
+    if(t[cn].f.size() == 0){
+        return t[cn].sub = t[cn].len();
+    }
+
+    ll ret = t[cn].len();
+    for(auto it : t[cn].f){
+        ret += precalc(it.se);
+    }
+
+    return t[cn].sub = ret;
+}
+
+void add_prefix(int cn, int len){
+    for(int i = 0; i < len; i++){
+        ans += t[cn][i];
     }
 }
 
-void merge_child(int cn, int ch){
-    simbols[cn] |= simbols[ch];
-}
+void kth(int cn, ll cnt){
+    if(cnt + t[cn].len() >= k){
+        int falta = k-cnt;
+        add_prefix(cn, falta);
+        return;
+    }
+    else if(cnt + t[cn].len() < k){
+        add_prefix(cn, t[cn].len());
+        cnt += t[cn].len();
+    }
 
-void precalc(int cn){
-    set_simbols(cn);    
 
     for(auto it : t[cn].f){
-        precalc(it.se);
-        merge_child(cn, it.se);
+        if(cnt + t[it.se].sub >= k){
+            kth(it.se, cnt);
+            break;
+        }
+        else{
+            cnt += t[it.se].sub;
+        }
     }
-}
-
-int max_path(int cn){
-    if(simbols[cn].count() < cnt){
-        return 0;
-    }
-
-    int ret = t[cn].len();
-    for(auto it : t[cn].f){
-        ret = max(ret, t[cn].len() + max_path(it.se));
-    }
-
-    return ret;
 }
 
 void dfs(int cn){
@@ -136,11 +146,8 @@ void dfs(int cn){
         cout << t[cn][i];
     }
     cout << endl;
+    cout << t[cn].sub << endl;
 
-    for(int i = 0; i < 10; i++){
-        cout << simbols[cn][i];
-    }
-    cout << endl;
 
     for(auto it : t[cn].f){
         dfs(it.se);
@@ -148,24 +155,25 @@ void dfs(int cn){
 }
 
 int main(void){
+    fastcin;
+
     novo (0, -1, -1, 0); //criando raiz
 
-    for(int i = 0; cin >> s[i]; i++){
-        // char c[2];
-        // c[0] = cnt+'0';
-        // c[1] = '\0';
-        // strcat(s[i], c);
-        s[i] += char(cnt+'0');
-        cnt++;
-        build_suffix_tree(s[i], i);
-    }
-
+    cin >> s[0];
+    build_suffix_tree(s[0], 0);
     precalc(0);
-    int ans = max_path(0);
+
     // dfs(0);
 
-    // cout << ans << endl;
-    printf("%d\n", ans);
+    int q;
+    cin >> q;
+
+    while(q--){
+        cin >> k;
+        kth(0, 0);
+        cout << ans << endl;
+        ans.clear();
+    }
 
     return 0;
 }
