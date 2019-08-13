@@ -39,10 +39,10 @@ void prop(int r, int i, int j){
 		clf[r] += ll(j-i+1) * lazy[r];
 
 		if(i != j){
-			lazy[2*r] = lazy[r];
+			lazy[2*r] += lazy[r];
 			mn[2*r] = mx[2*r] = mn[r];
 			
-			lazy[2*r+1] = lazy[r];
+			lazy[2*r+1] += lazy[r];
 			mn[2*r+1] = mx[2*r+1] = mn[r];
 		}
 
@@ -54,7 +54,7 @@ void update(int r, int x, int i, int j){
 	prop(r, i, j);
 	if(i > b or j < a) return;
 	if(i >= a and j <= b and mn[r] == mx[r]){
-		lazy[r] = abs(mx[r]-x);
+		lazy[r] += abs(mx[r]-x);
 		mn[r] = mx[r] = x;
 		prop(r, i, j);
 		return;
@@ -97,8 +97,6 @@ int main(void){
 
 	build(1, 1, n);
 
-	// print();
-
 	int tipo, l, r, x;
 	while(m--){
 		scanf("%d", &tipo);
@@ -114,7 +112,6 @@ int main(void){
 			ll ans = query(1, 1, n);
 			printf("%lld\n", ans);
 		}
-		// print();
 	}
 
 	return 0;
