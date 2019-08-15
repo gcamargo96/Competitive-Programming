@@ -1,8 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define INF 0x3f3f3f3f
+
 struct item {
-	int key, prior, cnt;
+	int key, prior, cnt, mx, mn, mindif;
 	item *l, *r;
 
 	item() {}
@@ -10,7 +12,10 @@ struct item {
 	item(int x){
 		key = x;
 		prior = rand();
-		cnt = 0;
+		cnt = 1;
+		mx = mn = x;
+		mindif = INF;
+		l = r = 0;
 	}
 
 	item(int key, int prior) : key(key), prior(prior), l(NULL), r(NULL) {}
@@ -22,9 +27,25 @@ int cnt (treap t) {
     return t ? t->cnt : 0;
 }
 
-void upd_cnt (treap t) {
-    if (t)
+int mn(treap t){
+	return t ? t->mn : INF;
+}
+
+int mx(treap t){
+	return t ? t->mx : -INF;
+}
+
+int mindif(treap t){
+	return t ? t->mindif : INF;
+}
+
+void upd (treap t) {
+    if (t){
         t->cnt = 1 + cnt(t->l) + cnt (t->r);
+        t->mn = min(t->key, mn(t->l));
+        t->mx = max(t->key, mx(t->r));
+        t->mindif = t->cnt == 1 ? INF : min(min(mindif(t->l), mindif(t->r)), min(t->key-mx(t->l), mn(t->r)-t->key));
+    }
 }
 
 void split(treap t, int x, treap& l, treap& r){
@@ -39,18 +60,39 @@ void split(treap t, int x, treap& l, treap& r){
 		split(t->r, x, t->r, r);
 		l = t;
 	}
-	upd_cnt(t);
+	upd(t);
+}
+
+// menor ou igual vai pra esquerda, maior vai pra direita
+void split_pos(treap t, int pos, treap& l, treap& r, int acc = 0){
+	if(!t){
+		l = r = NULL;
+	}
+	else if(pos < acc + cnt(t->l) + 1){
+		split_pos(t->l, pos, l, t->l, acc);
+		r = t;
+	}
+	else{
+		split_pos(t->r, pos, t->r, r, acc + cnt(t->l) + 1);
+		l = t;
+	}
+	upd(t);
 }
 
 void insert (treap & t, treap it) {
     if (!t)
         t = it;
-    else if (it->prior > t->prior)
+    else if(it->key == t->key){
+    	return;
+    }
+    else if (it->prior > t->prior){
         split (t, it->key, it->l, it->r),  t = it;
+    }
     else
         insert (it->key < t->key ? t->l : t->r, it);
-    upd_cnt(t);
+    upd(t);
 }
+
 
 void merge (treap & t, treap l, treap r) {
     if (!l || !r)
@@ -59,17 +101,29 @@ void merge (treap & t, treap l, treap r) {
         merge (l->r, l->r, r),  t = l;
     else
         merge (r->l, l, r->l),  t = r;
-    upd_cnt(t);
+    upd(t);
 }
 
+int has (treap t, int x) {
+	if(!t) return 0;
+    if (t->key == x) 
+    	return 1;
+    else
+        return has (x < t->key ? t->l : t->r, x);
+}
+
+
+
 void erase (treap & t, int x) {
+	if(!t) return;
     if (t->key == x)
         merge (t, t->l, t->r);
     else
         erase (x < t->key ? t->l : t->r, x);
-    upd_cnt(t);
+    upd(t);
 }
 
+// one based
 int find_kth(treap t, int k, int acc = 0){
 	if(!t) return -1;
 
@@ -84,36 +138,70 @@ int find_kth(treap t, int k, int acc = 0){
 	}
 }
 
+int find_mindif(treap t, int i, int j){
+	if(i == j) return -1;
+
+	treap L = NULL, R = NULL;
+	split_pos(t, i-1, L, t);
+	split_pos(t, j-i+1, t, R);
+
+	int ans = mindif(t);
+
+	merge(t, L, t);
+	merge(t, t, R);
+
+	return ans;
+}
+
 void print(treap t){
 	if(!t) return;
 	print(t->l);
-	printf("(%d,%d) ", t->key, t->cnt);
+		cout << '(' << t->key << "," << t->cnt << "," << t->mn << "," << t->mx << "," << t->mindif << ") ";
 	print(t->r);
 }
 
+
 int main(void){
-	treap t = NULL;
+	int n; scanf("%d", &n);
 
-	insert(t, new item(2));
-	insert(t, new item(1));
-	insert(t, new item(5));
+	treap t = 0;
 
-	cout << find_kth(t, 1) << endl;
-	cout << find_kth(t, 2) << endl;
-	cout << find_kth(t, 3) << endl;
+	char op;
+	int k, l, r;
 
-	print(t);
-	printf("\n");
+	while(n--){
+		scanf(" %c", &op);
+		int ans;
 
-	treap L, R;
-	split(t, 3, L, R);
-
-	print(L);
-	printf("\n");
-
-	print(R);
-	printf("\n");
-
+		switch(op){
+			case 'I':
+				scanf("%d", &k);
+				if(has(t, k) == 0) insert(t, new item(k));
+				break;
+			case 'D':
+				scanf("%d", &k);
+				erase(t, k);
+				break;
+			case 'N':
+				scanf("%d%d", &l, &r);
+				ans = find_mindif(t, l+1, r+1);
+				printf("%d\n", ans);
+				break;
+			case 'X':
+				scanf("%d%d", &l, &r);
+				if(l < r){
+					ans = find_kth(t, r+1) - find_kth(t, l+1);
+					printf("%d\n", ans);
+				}
+				else
+					printf("-1\n");
+				break;
+			case 'P':
+				print(t);
+				printf("\n");
+				break;
+		}
+	}
 
 	return 0;
 }
