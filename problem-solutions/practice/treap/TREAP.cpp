@@ -12,9 +12,10 @@ struct item {
 	item(int x){
 		key = x;
 		prior = rand();
-		cnt = 0;
+		cnt = 1;
 		mx = mn = x;
 		mindif = INF;
+		l = r = 0;
 	}
 
 	item(int key, int prior) : key(key), prior(prior), l(NULL), r(NULL) {}
@@ -62,6 +63,7 @@ void split(treap t, int x, treap& l, treap& r){
 	upd(t);
 }
 
+// menor ou igual vai pra esquerda, maior vai pra direita
 void split_pos(treap t, int pos, treap& l, treap& r, int acc = 0){
 	if(!t){
 		l = r = NULL;
@@ -91,6 +93,7 @@ void insert (treap & t, treap it) {
     upd(t);
 }
 
+
 void merge (treap & t, treap l, treap r) {
     if (!l || !r)
         t = l ? l : r;
@@ -101,7 +104,18 @@ void merge (treap & t, treap l, treap r) {
     upd(t);
 }
 
+int has (treap t, int x) {
+	if(!t) return 0;
+    if (t->key == x) 
+    	return 1;
+    else
+        return has (x < t->key ? t->l : t->r, x);
+}
+
+
+
 void erase (treap & t, int x) {
+	if(!t) return;
     if (t->key == x)
         merge (t, t->l, t->r);
     else
@@ -109,6 +123,7 @@ void erase (treap & t, int x) {
     upd(t);
 }
 
+// one based
 int find_kth(treap t, int k, int acc = 0){
 	if(!t) return -1;
 
@@ -130,8 +145,6 @@ int find_mindif(treap t, int i, int j){
 	split_pos(t, i-1, L, t);
 	split_pos(t, j-i+1, t, R);
 
-	if(cnt(t) == 1) return t->key;
-
 	int ans = mindif(t);
 
 	merge(t, L, t);
@@ -143,46 +156,38 @@ int find_mindif(treap t, int i, int j){
 void print(treap t){
 	if(!t) return;
 	print(t->l);
-	// printf("(%d,%d,%d) ", t->key, t->cnt, t->mindif);
 		cout << '(' << t->key << "," << t->cnt << "," << t->mn << "," << t->mx << "," << t->mindif << ") ";
 	print(t->r);
 }
 
 
 int main(void){
-	// ios_base::sync_with_stdio(false);
-	int n;
-	// cin >> n;
-	scanf("%d", &n);
+	int n; scanf("%d", &n);
 
-	treap t = NULL;
+	treap t = 0;
 
 	char op;
 	int k, l, r;
+
 	while(n--){
-		// cin >> op;
 		scanf(" %c", &op);
 		int ans;
 
 		switch(op){
 			case 'I':
-				// cin >> k;
 				scanf("%d", &k);
-				insert(t, new item(k));
+				if(has(t, k) == 0) insert(t, new item(k));
 				break;
 			case 'D':
-				// cin >> k;
 				scanf("%d", &k);
 				erase(t, k);
 				break;
 			case 'N':
-				// cin >> l >> r;
 				scanf("%d%d", &l, &r);
 				ans = find_mindif(t, l+1, r+1);
 				printf("%d\n", ans);
 				break;
 			case 'X':
-				// cin >> l >> r;
 				scanf("%d%d", &l, &r);
 				if(l < r){
 					ans = find_kth(t, r+1) - find_kth(t, l+1);
@@ -191,11 +196,10 @@ int main(void){
 				else
 					printf("-1\n");
 				break;
-			// case 'P':
-			// 	print(t);
-			// 	// cout << endl;
-			// 	printf("\n");
-			// 	break;
+			case 'P':
+				print(t);
+				printf("\n");
+				break;
 		}
 	}
 
